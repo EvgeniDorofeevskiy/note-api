@@ -6,6 +6,33 @@ from utility.helpers import get_object_or_404
 
 @app.route("/users/<int:user_id>")
 def get_user_by_id(user_id):
+    """
+    Get User by id
+    ---
+    tags:
+        - Users
+    parameters:
+         - in: path
+           name: user_id
+           type: integer
+           required: true
+           default: 1
+
+    responses:
+        200:
+            description: A single user item
+            schema:
+                id: User
+                properties:
+                    id:
+                        type: integer
+                    username:
+                        type: string
+                    is_staff:
+                        type: boolean
+    """
+
+
     user = get_object_or_404(UserModel, user_id)
     if user is None:
         return {"error": "User not found"}, 404
@@ -14,6 +41,13 @@ def get_user_by_id(user_id):
 
 @app.route("/users")
 def get_users():
+    """
+   Get all Users
+   ---
+   tags:
+     - Users
+   """
+
     users = UserModel.query.all()
     return users_schema.dump(users), 200
 
