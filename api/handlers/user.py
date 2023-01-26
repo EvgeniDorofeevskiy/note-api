@@ -23,6 +23,8 @@ def create_user():
     user_data = request.json
     user = UserModel(**user_data)
     # TODO: добавить обработчик на создание пользователя с неуникальным username
+    if UserModel.query.filter_by(username=user.username).one_or_none():
+        return {"error": "User not exist"}, 409
     user.save()
     return user_schema.dump(user), 201
 
@@ -41,6 +43,14 @@ def edit_user(user_id):
 @multi_auth.login_required(role="admin")
 def delete_user(user_id):
     """
-    Пользователь может удалять ТОЛЬКО свои заметки
+    Пользователь должен удаляться только со своими заметками
     """
-    raise NotImplemented("Метод не реализован")
+    user = get_object_or_404(UserModel, user_id)
+    user = UserModel.query.get(user_id)
+    user.delete()
+    
+# если есть цитаты у автора то автор будет удален а цитаты нет
+# в место айди автора появится значение нулл в колонке автора
+    
+    return {"massege": f"user with id={user_id} deleted"}, 200
+    # raise NotImplemented("Метод не реализован")

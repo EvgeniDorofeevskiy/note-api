@@ -1,0 +1,8 @@
+{
+    "python.defaultInterpreterPath": "/home/user/.local/share/virtualenvs/NoteApi-lo2YWQYw",
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
