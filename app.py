@@ -11,6 +11,10 @@ from api.handlers import auth, note, user
 # Update --> PUT
 # Delete --> DELETE
 docs.register(user.get_user_by_id)
+docs.register(user.get_users)
+docs.register(user.create_user)
+docs.register(user.edit_user)
+docs.register(user.delete_user)
 
 
 
